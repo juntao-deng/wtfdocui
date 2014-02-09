@@ -1,22 +1,50 @@
 define(function(){
+	var currApp = $app;
 	return {
 		navigateSelection: function(taskId, taskType, params) {
 			params = params | {};
 			if(taskType == "ext3"){
-				navigateExt3Task(taskId, params);
+				if(clientMode){
+					alert("ext3 app isn't supported in client mode");
+					return;
+				}
+				this.navigateExt3Task(taskId, params);
 			}
 			else if(taskType == "ext4"){
-				navigateExt4Task(taskId, params);
+				if(clientMode){
+					alert("ext4 app isn't supported in client mode");
+					return;
+				}
+				this.navigateExt4Task(taskId, params);
 			}
 			else{
-				navigateWtfTask(taskId, params);
+				this.navigateWtfTask(taskId, params);
+			}
+		},
+		swtichTaskContainer: function(isWtf) {
+			var card = currApp.component("container_card");
+			var index = card.active();
+			if(isWtf){
+				if(index != 0)
+					card.active(0);
+			}
+			else{
+				if(index != 1){
+					$("#ext_legacy_iframe").css({
+						width: "100%",
+						height: "500px"
+					});
+					card.active(1);
+				}
 			}
 		},
 		navigateExt3Task: function(taskId, params){
+			this.swtichTaskContainer(false);
     		Jx.shell.legacyFrame.openTask( taskId, params  );
     		workspace.activateLegacyCard();
 		},
 		navigateExt4Task: function(taskId, params){
+			this.swtichTaskContainer(false);
     		params.taskId = taskId;
     		Jx.shell.createTask(taskClass, params);
     	
@@ -31,7 +59,7 @@ define(function(){
     		}
 		},
 		navigateWtfTask: function(taskId, params){
-			
+			this.swtichTaskContainer(true);
 		}
 	};
 });

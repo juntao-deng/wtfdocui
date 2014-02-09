@@ -20,26 +20,27 @@ function testClientModeCache(){
 	}
 	return true;
 }
+
 window.clientMode = testClientMode();
 if(window.clientMode){
 	window.clientModeCachable = testClientModeCache();
 	if(window.DesignMode || !window.clientModeCachable)
 		window.ClientMode_Postfix = parseInt(Math.random() * 1000) + "";
 }
-window.mainCtx = "wtfdocui";
+window.mainCtx = "wtfdoc";
 window.frameCtx = "wtf";
 
 if(window.clientMode){
 	window.frameworkPath = "D:/Develop/projects/wtfbase/web/";
 	window.contextMappings = {
-		'wtfdocui' : 'D:/Develop/projects/wtfprojs/wtfdocui/web/applications/'
+		'wtfdoc' : 'D:/Develop/projects/wtfprojs/wtfdocui/web/applications/'
 	};
 	window.contextMappings[window.frameCtx] = 'D:/Develop/projects/wtfbase/web/applications/';
 }
 else{
 	window.frameworkPath = "/" + window.frameCtx + "/";
 	window.contextMappings = {
-		'wtfdocui' : '/wtfdocui/applications/'
+		'wtfdoc' : '/wtfdoc/applications/'
 	};
 	window.contextMappings[window.frameCtx] = '/' + window.frameCtx + "/applications/";
 }

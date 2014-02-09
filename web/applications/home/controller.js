@@ -1,4 +1,4 @@
-wdefine(['./homenav'], function(){
+wdefine(['./homenav'], function(homenav){
 	$(window).unload(function(){
 		
 	});
@@ -33,11 +33,11 @@ wdefine(['./homenav'], function(){
 			}
 		}
 	});
-	
+	$app.component("homesidenav").on("selection", function(){
+		homenav.navigateSelection(taskId, taskType, params);
+	});
 	
 	function initLegacyFrames() {
-		var frame = $('<iframe style="width:100%;height:100%;"></iframe>');
-		$(document.body).append(frame);
-		frame.src = "/mainui/ext4Legacy.jsp";
+		$("#ext_legacy_iframe").attr("src", "/mainui/ext4Legacy.jsp");
 	}
 });

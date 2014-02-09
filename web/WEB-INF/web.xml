@@ -1,10 +1,12 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
-
-<web-app>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2009-2011 Juniper Networks, Inc. All rights reserved. -->
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
   <icon></icon>
-  <display-name>Web Application</display-name>
+  <display-name>Default Web Application</display-name>
   <description></description>
   <context-param>
   	<param-name>resteasy.scan</param-name>
@@ -14,31 +16,24 @@
 	<param-name>resteasy.servlet.mapping.prefix</param-name>
 	<param-value>/rest</param-value>
   </context-param>
-  <listener> 
-     <listener-class>
-          org.springframework.web.context.ContextLoaderListener
-     </listener-class> 
-  </listener> 
-  <listener>
+  <!--<listener>
   	<listener-class>org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap</listener-class>
   </listener>
+-->
   <listener>
-  	<listener-class>net.juniper.jmp.core.servlet.WtfContextListener</listener-class>
+  	<listener-class>net.juniper.jmp.wtf.servlet.WtfRequestContextListener</listener-class>
   </listener>
   <servlet>
   	<servlet-name>resteasy</servlet-name>
 	<servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
   </servlet>
-  <servlet>
-  	<servlet-name>appdisptcher</servlet-name>
-  	<servlet-class>com.juniper.wtf.tags.AppDispatchServlet</servlet-class>
-  </servlet>
+
   <servlet-mapping>
   	<servlet-name>resteasy</servlet-name>
 	<url-pattern>/rest/*</url-pattern>
   </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>appdisptcher</servlet-name>
-	<url-pattern>/apps/*</url-pattern>
-  </servlet-mapping>
+    
+  <welcome-file-list>
+	<welcome-file>nIndex.jsp</welcome-file>
+  </welcome-file-list>
 </web-app>
